@@ -14,7 +14,7 @@ public class MyDataset {
 				.getOrCreate();
 //		http://parquet.apache.org/
 		Dataset<Person> people = sqlContext.read().parquet("hdfs://localhost:9000/user/zzw/input/people.csv").as(Encoders.bean(Person.class));
-		Dataset<String> names = people.map((Person p) -> p.name,Encoders.STRING());
+//		Dataset<String> names = people.map((Person p) -> p.name,Encoders.STRING());
 		System.out.println(people.col("pwd").plus(10));  // in Java
 		
 	}

@@ -3,9 +3,13 @@ package spark.example;
 
 
 import java.util.Arrays;
+import java.util.Iterator;
 
+import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.function.FlatMapFunction;
+import org.apache.spark.api.java.function.PairFunction;
 import org.apache.spark.ml.classification.LogisticRegression;
 import org.apache.spark.ml.classification.LogisticRegressionModel;
 import org.apache.spark.mllib.linalg.Vector;
@@ -16,6 +20,9 @@ import org.apache.spark.sql.types.DataTypes;
 import org.apache.spark.sql.types.Metadata;
 import org.apache.spark.sql.types.StructField;
 import org.apache.spark.sql.types.StructType;
+
+import scala.Tuple2;
+
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 
@@ -34,6 +41,7 @@ public class MachineLearning {
 		  new StructField("label", DataTypes.DoubleType, false, Metadata.empty()),
 		  new StructField("features", new VectorUDT(), false, Metadata.empty()),
 		});
+
 
 		Dataset<Row> df = jsql.createDataFrame(data, schema);
 

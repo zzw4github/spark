@@ -17,7 +17,7 @@ import scala.Tuple2;
 
 
 
-public class WordCount {
+public class WordCount1 {
 	public static void main(String[] args) {
 		SparkSession spark = SparkSession
 			      .builder()
@@ -26,8 +26,7 @@ public class WordCount {
 			      .getOrCreate();
 
 			    JavaSparkContext jsc = new JavaSparkContext(spark.sparkContext());
-//		JavaRDD<String> textFile = jsc.textFile("hdfs://localhost:9000/user/zzw/input/hdfs-site.xml");
-		JavaRDD<String> textFile = jsc.textFile("file:///user/zzw/input/hdfs-site.xml");
+		JavaRDD<String> textFile = jsc.textFile("file:///usr/hadoop-2.7.2/input/hdfs-site.xml");
 		JavaRDD<String> words = textFile.flatMap(new FlatMapFunction<String, String>() {
 			public Iterator<String> call(String s) {
 				return Arrays.asList(s.split(" ")).iterator();
@@ -43,7 +42,7 @@ public class WordCount {
 				return a + b;
 			}
 		});
-		counts.saveAsTextFile("file:///user/zzw/input/hdfs-site.xml.local.wordcount");
-
+		counts.saveAsTextFile("file:///usr/hadoop-2.7.2/input/hdfs-site.xml.wordcount");
+		jsc.close();
 	}
 }
